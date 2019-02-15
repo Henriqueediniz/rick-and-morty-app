@@ -41,7 +41,7 @@ class CharacterList extends Component {
         loading: true,
       });
 
-      const page = Math.floor(Math.random() * 20) + 1;
+      const page = Math.floor(Math.random() * 10) + 1;
 
       const response = await axios.get(`${API_URL}/character/?page=${page}`);
       const { results } = response.data;
@@ -91,12 +91,9 @@ class CharacterList extends Component {
     
     return (
       
-      <section >
-    
-      <Modal visible={this.state.visible} 
-             effect="fadeInUp" 
-             onClickAway={() => this.closeModal()}
-             >
+      <section>
+      <input type="button" value="Open" onClick={() => this.openModal()} />
+      <Modal visible={this.state.visible} effect="fadeInUp" onClickAway={() => this.closeModal()}>
           <div>
               <CharacterInfo character={selectedCharacter}/>
               <input type="button" value="Close" onClick={() => this.closeModal()}/>
@@ -112,7 +109,8 @@ class CharacterList extends Component {
       <section >
       <div className="character-list">
         <ul>
-          {this.renderCharacters()}    
+          {this.renderCharacters()} 
+          {this.renderSelectedCharacter()}   
         </ul>
       </div>
     
