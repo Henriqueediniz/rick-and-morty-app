@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 
+
 class CharacterInfo extends Component {
   render() {
     const { character } = this.props;
 
     return (
+    <section>
       <div className="character">
         <h1>You've selected {character.name}</h1>
 
@@ -20,6 +22,7 @@ class CharacterInfo extends Component {
           </div>
         </div>
       </div>
+    </section>
     );
   }
 }

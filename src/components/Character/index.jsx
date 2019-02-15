@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
 
 class Character extends Component {
+  openModal() {
+    this.setState({
+        visible : true
+    });
+}
+
   render() {
     const {
       character,
-      showDetails
+      showDetails,
     } = this.props;
 
     return (

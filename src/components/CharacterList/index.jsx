@@ -4,7 +4,7 @@ import './character-list.css';
 import '../Character'
 import Character from '../Character';
 import CharacterInfo from '../CharacterInfo';
-
+import Modal from 'react-awesome-modal';
 
 const API_URL = 'https://rickandmortyapi.com/api';
 
@@ -17,10 +17,23 @@ class CharacterList extends Component {
       selectCharacter: false,
       characters: [],
       selectedCharacter: {},
+      visible: false,
     }
 
     this.showDetails = this.showDetails.bind(this);
   }
+
+  openModal() {
+    this.setState({
+        visible : true
+    });
+}
+
+  closeModal() {
+    this.setState({
+        visible : false
+    });
+}
 
   async componentDidMount() {
     try {
@@ -49,40 +62,63 @@ class CharacterList extends Component {
     this.setState({
       selectedCharacter,
     });
+
+    
   }
 
   renderCharacters() {
     const { characters } = this.state;
 
+    
     return characters.map(character => (
       <Character
         key={character.id}
         character={character}
         showDetails={this.showDetails}
       />
-    ));
+    )
+    );
+
   }
 
   renderSelectedCharacter() {
+  
     const { selectedCharacter } = this.state;
 
     if (!selectedCharacter.id) {
       return <div />;
     }
-
+    
     return (
-      <CharacterInfo character={selectedCharacter}/>
+      
+      <section >
+    
+      <Modal visible={this.state.visible} 
+             effect="fadeInUp" 
+             onClickAway={() => this.closeModal()}
+             >
+          <div>
+              <CharacterInfo character={selectedCharacter}/>
+              <input type="button" value="Close" onClick={() => this.closeModal()}/>
+          </div>
+      </Modal>
+      </section>
+    
     );
   }
-
+  
   render() {
     return (
+      <section >
       <div className="character-list">
         <ul>
-          {this.renderCharacters()}
-          {this.renderSelectedCharacter()}
+          {this.renderCharacters()}    
         </ul>
       </div>
+    
+      </section>
+
+
     )
   }
 }
